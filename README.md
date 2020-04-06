@@ -1,2 +1,2 @@
-# gleb7raul-ReactJsToDo
+# ReactJsToDo
 react to-do-list
