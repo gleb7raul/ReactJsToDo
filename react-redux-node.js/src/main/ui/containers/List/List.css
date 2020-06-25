@@ -1,0 +1,11 @@
+.toollbar {
+    min-height: 4rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.searchField {
+    height: 2.5rem;
+    width: 21rem;
+}
