@@ -2,7 +2,7 @@ import React from 'react';
 import logo from './images/small.png';
 import './style/App.css';
 
-import List from './containers/List';
+import List from './components/List';
 
 function App() {
   return (

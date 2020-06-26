@@ -1,0 +1,22 @@
+.templateContainer {
+    display: table;
+    margin: 0 auto;
+}
+
+.additionaltemplateContainer {
+    display: flex;
+}
+
+.templateWrapper {
+    border: 3px solid #005cbf;
+    min-height: 4rem;
+    width: 1000px;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.templateAddButton {
+    border-radius: 0rem;
+}
+
