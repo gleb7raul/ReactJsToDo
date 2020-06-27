@@ -25,6 +25,7 @@ const BookShortTemplate = () => (
             </Button>
         </div >
     </div >
+
 );
 
 

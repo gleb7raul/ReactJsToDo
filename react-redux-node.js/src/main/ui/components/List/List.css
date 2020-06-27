@@ -9,3 +9,11 @@
     height: 2.5rem;
     width: 21rem;
 }
+
+.createNewBook {
+    display: none;
+}
+
+.displayTemplate {
+    display: block;
+}

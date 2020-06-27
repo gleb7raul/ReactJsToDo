@@ -11,16 +11,18 @@ import BookShortTemplate from './../BookShortTemplate';
 class List extends React.Component {
     constructor() {
         super();
-        this.State = {
-            list: []
+        this.state = {
+            list: [],
+            show: false
         };
     }
 
     addBook() {
-
+        this.setState({ show: !this.state.show });
     }
 
     render() {
+        const { show } = this.state;
         return (
             <div className="wrapper">
                 <section className="toollbar">
@@ -30,11 +32,11 @@ class List extends React.Component {
                         <Dropdown.Item as="button">Another action</Dropdown.Item>
                         <Dropdown.Item as="button">Something else</Dropdown.Item>
                     </DropdownButton>
-                    <Button onClick="addBook" variant="primary">
+                    <Button onClick={this.addBook.bind(this)} variant="primary">
                         Create new book
                     </Button>
                 </section>
-                <section>
+                <section className={show ? 'displayTemplate' : 'createNewBook'}>
                     <BookShortTemplate />
                 </section>
             </div>
