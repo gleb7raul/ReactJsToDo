@@ -7,7 +7,8 @@ import {
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './BookShortTemplate.css';
 
-const BookShortTemplate = () => (
+
+const BookShortTemplate = ({ func }) => (
     <div className="templateContainer">
         <div className="additionaltemplateContainer">
             <section className="templateWrapper">
@@ -20,8 +21,11 @@ const BookShortTemplate = () => (
                 </DropdownButton>
                 <textarea placeholder="text..." />
             </section >
-            <Button onClick="addBook" variant="primary" className="templateAddButton">
+            <Button onClick={() => func(false)} variant="primary" className="templateAddButton">
                 ADD
+            </Button>
+            <Button onClick={() => func(false)} variant="info" className="templateAddButton">
+                CANCEL
             </Button>
         </div >
     </div >

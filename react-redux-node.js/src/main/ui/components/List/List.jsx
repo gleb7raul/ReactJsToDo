@@ -17,8 +17,12 @@ class List extends React.Component {
         };
     }
 
-    addBook() {
-        this.setState({ show: !this.state.show });
+    addBook(evt) {
+        if (evt) {
+            this.setState({ show: evt });
+        } else {
+            this.setState({ show: !this.state.show });
+        }
     }
 
     render() {
@@ -37,7 +41,7 @@ class List extends React.Component {
                     </Button>
                 </section>
                 <section className={show ? 'displayTemplate' : 'createNewBook'}>
-                    <BookShortTemplate />
+                    <BookShortTemplate func={this.addBook.bind(this)} />
                 </section>
             </div>
         );
