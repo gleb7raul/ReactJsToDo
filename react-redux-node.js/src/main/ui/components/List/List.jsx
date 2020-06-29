@@ -20,9 +20,29 @@ class List extends React.Component {
     addBook(evt) {
         if (evt) {
             this.setState({ show: evt });
+            this.newBook = {};
         } else {
             this.setState({ show: !this.state.show });
         }
+    }
+
+    createBook(propertyOfBook) {
+        console.log('first');
+        console.log(propertyOfBook);
+        if (propertyOfBook.title) {
+            this.newBook.title = propertyOfBook.title;
+        }
+        if (propertyOfBook.important) {
+            this.newBook.important = propertyOfBook.important;
+        }
+        if (propertyOfBook.rating) {
+            this.newBook.rating = propertyOfBook.rating;
+        }
+        if (propertyOfBook.comment) {
+            this.newBook.comment = propertyOfBook.comment;
+        }
+        console.log('result');
+        console.log(this.newBook);
     }
 
     render() {
@@ -32,16 +52,16 @@ class List extends React.Component {
                 <section className="toollbar">
                     <input className="searchField" type="text" placeholder="Search..." />
                     <DropdownButton id="dropdown-item-button" title="Sorting Selection">
-                        <Dropdown.Item as="button">Action</Dropdown.Item>
-                        <Dropdown.Item as="button">Another action</Dropdown.Item>
-                        <Dropdown.Item as="button">Something else</Dropdown.Item>
+                        <Dropdown.Item eventKey="1" as="button">Action</Dropdown.Item>
+                        <Dropdown.Item eventKey="2" as="button">Another action</Dropdown.Item>
+                        <Dropdown.Item eventKey="3" as="button">Something else</Dropdown.Item>
                     </DropdownButton>
                     <Button onClick={this.addBook.bind(this)} variant="primary">
                         Create new book
                     </Button>
                 </section>
                 <section className={show ? 'displayTemplate' : 'createNewBook'}>
-                    <BookShortTemplate func={this.addBook.bind(this)} />
+                    <BookShortTemplate func={this.addBook.bind(this)} createNewBook={this.createBook.bind(this)} />
                 </section>
             </div>
         );
