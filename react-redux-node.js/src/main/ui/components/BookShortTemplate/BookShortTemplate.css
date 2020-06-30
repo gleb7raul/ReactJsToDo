@@ -19,3 +19,18 @@
 .templateAddButton {
     border-radius: 0rem;
 }
+
+.dropDownBookShortTemplate {
+    width: 11.5rem;
+    height: 2rem;
+    border: 1px solid #005cbf;
+    color: #005cbf;
+}
+
+.title {
+    border: 1px solid #005cbf;
+}
+
+.textareaBookShortTemplate {
+    border: 1px solid #005cbf;
+}

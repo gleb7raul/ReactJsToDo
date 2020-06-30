@@ -11,6 +11,7 @@ import BookShortTemplate from './../BookShortTemplate';
 class List extends React.Component {
     constructor() {
         super();
+        this.Rating = ['poor', 'middle', 'great'];
         this.state = {
             list: [],
             show: false
@@ -32,7 +33,7 @@ class List extends React.Component {
         if (propertyOfBook.title) {
             this.newBook.title = propertyOfBook.title;
         }
-        if (propertyOfBook.important) {
+        if (Object.keys(propertyOfBook).some((property) => property === 'important')) {
             this.newBook.important = propertyOfBook.important;
         }
         if (propertyOfBook.rating) {
@@ -43,6 +44,10 @@ class List extends React.Component {
         }
         console.log('result');
         console.log(this.newBook);
+    }
+
+    clearProperty() {
+        return "";
     }
 
     render() {
@@ -61,7 +66,7 @@ class List extends React.Component {
                     </Button>
                 </section>
                 <section className={show ? 'displayTemplate' : 'createNewBook'}>
-                    <BookShortTemplate func={this.addBook.bind(this)} createNewBook={this.createBook.bind(this)} />
+                    <BookShortTemplate func={this.addBook.bind(this)} createNewBook={this.createBook.bind(this)} rating={this.Rating} clearProperty={this.clearProperty.bind(this)} />
                 </section>
             </div>
         );
