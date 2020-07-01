@@ -8,7 +8,7 @@
 }
 
 .templateWrapper {
-    border: 3px solid #005cbf;
+    border: 3px solid #007bff;
     min-height: 4rem;
     width: 1000px;
     display: flex;
@@ -23,14 +23,41 @@
 .dropDownBookShortTemplate {
     width: 11.5rem;
     height: 2rem;
-    border: 1px solid #005cbf;
-    color: #005cbf;
+    border: 1px solid #007bff;
+    color: #007bff;
 }
 
 .title {
-    border: 1px solid #005cbf;
+    border: 1px solid #007bff;
 }
 
 .textareaBookShortTemplate {
-    border: 1px solid #005cbf;
+    border: 1px solid #007bff;
+}
+
+.templateForm {
+    display: flex;
+    align-items: center;
+}
+
+.templateAdd {
+    height: 4rem;
+    width: 5rem;
+    color: white;
+    background-color: #007bff;
+}
+
+.templateCancel {
+    height: 4rem;
+    width: 5rem;
+    color: white;
+    background-color: #007bff;
+}
+
+.templateAdd:hover {
+    background-color: #1475dd;
+}
+
+.templateCancel:hover {
+    background-color: #1475dd;
 }

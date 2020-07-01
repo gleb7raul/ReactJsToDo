@@ -12,24 +12,29 @@ class List extends React.Component {
     constructor() {
         super();
         this.Rating = ['poor', 'middle', 'great'];
+        this.newBook = {};
         this.state = {
             list: [],
             show: false
         };
     }
 
-    addBook(evt) {
-        if (evt) {
-            this.setState({ show: evt });
+    addBook(event) {
+        event.preventDefault();
+        if (event.target.tagName === 'BUTTON') {
+            this.setState({ show: true });
             this.newBook = {};
         } else {
+            if (Object.keys(this.newBook)) {
+                this.setState({ list: this.state.list.push(this.newBook) });
+            }
             this.setState({ show: !this.state.show });
+
         }
+        console.log(this.state);
     }
 
     createBook(propertyOfBook) {
-        console.log('first');
-        console.log(propertyOfBook);
         if (propertyOfBook.title) {
             this.newBook.title = propertyOfBook.title;
         }
@@ -42,16 +47,10 @@ class List extends React.Component {
         if (propertyOfBook.comment) {
             this.newBook.comment = propertyOfBook.comment;
         }
-        console.log('result');
-        console.log(this.newBook);
-    }
-
-    clearProperty() {
-        return "";
     }
 
     render() {
-        const { show } = this.state;
+        const { show, list } = this.state;
         return (
             <div className="wrapper">
                 <section className="toollbar">
@@ -66,7 +65,10 @@ class List extends React.Component {
                     </Button>
                 </section>
                 <section className={show ? 'displayTemplate' : 'createNewBook'}>
-                    <BookShortTemplate func={this.addBook.bind(this)} createNewBook={this.createBook.bind(this)} rating={this.Rating} clearProperty={this.clearProperty.bind(this)} />
+                    <BookShortTemplate createNewBook={this.createBook.bind(this)} rating={this.Rating} addBook={this.addBook.bind(this)} />
+                    <ul>
+                        {console.log(list)}
+                    </ul>
                 </section>
             </div>
         );
