@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PureComponent } from 'react';
 import {
     Button,
     DropdownButton,
@@ -7,34 +7,40 @@ import {
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './List.css';
 import BookShortTemplate from './../BookShortTemplate';
+import Book from './../Book';
 
-class List extends React.Component {
+class List extends PureComponent {
     constructor() {
         super();
         this.Rating = ['poor', 'middle', 'great'];
         this.newBook = {};
+        this.test = [];
         this.state = {
             list: [],
             show: false
         };
     }
 
-    addBook(event) {
+    openTemplate = () => {
+        this.setState({ show: true });
+        this.newBook = {};
+    }
+
+    addBook = (event) => {
         event.preventDefault();
         if (event.target.tagName === 'BUTTON') {
             this.setState({ show: true });
             this.newBook = {};
         } else {
             if (Object.keys(this.newBook)) {
-                this.setState({ list: this.state.list.push(this.newBook) });
+                let book = Object.assign(this.newBook, { id: new Date().toString() });
+                this.setState({ list: this.state.list.concat(book) });
             }
             this.setState({ show: !this.state.show });
-
         }
-        console.log(this.state);
     }
 
-    createBook(propertyOfBook) {
+    createBook = (propertyOfBook) => {
         if (propertyOfBook.title) {
             this.newBook.title = propertyOfBook.title;
         }
@@ -60,15 +66,16 @@ class List extends React.Component {
                         <Dropdown.Item eventKey="2" as="button">Another action</Dropdown.Item>
                         <Dropdown.Item eventKey="3" as="button">Something else</Dropdown.Item>
                     </DropdownButton>
-                    <Button onClick={this.addBook.bind(this)} variant="primary">
+                    <Button onClick={this.openTemplate} variant="primary">
                         Create new book
                     </Button>
                 </section>
                 <section className={show ? 'displayTemplate' : 'createNewBook'}>
-                    <BookShortTemplate createNewBook={this.createBook.bind(this)} rating={this.Rating} addBook={this.addBook.bind(this)} />
-                    <ul>
-                        {console.log(list)}
-                    </ul>
+                    <BookShortTemplate createNewBook={this.createBook} rating={this.Rating} addBook={this.addBook} />
+                </section>
+                <section className={list ? 'displayTemplate' : 'createNewBook'}>
+                    <Book list={list} />
+                    <div>{console.log(list)}Hleb</div>
                 </section>
             </div>
         );

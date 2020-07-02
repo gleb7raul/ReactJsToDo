@@ -18,7 +18,7 @@ const BookShortTemplate = ({ createNewBook, rating, addBook }) => (
                         <textarea className="textareaBookShortTemplate" placeholder="text..." onChange={(e) => createNewBook({ comment: e.target.value })} />
                     </div>
                     <input className="templateAdd title" type="submit" value="ADD" />
-                    <input className="templateCancel title" type="submit" value="CANCEL" />
+                    {/* <input className="templateCancel title" type="submit" value="CANCEL" /> */}
                 </form>
             </section >
         </div >
