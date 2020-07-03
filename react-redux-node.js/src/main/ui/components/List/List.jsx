@@ -75,7 +75,6 @@ class List extends PureComponent {
                 </section>
                 <section className={list ? 'displayTemplate' : 'createNewBook'}>
                     <Book list={list} />
-                    <div>{console.log(list)}Hleb</div>
                 </section>
             </div>
         );
