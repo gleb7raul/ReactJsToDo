@@ -4,11 +4,10 @@
     align-items: center;
     justify-content: space-evenly;
     width: 900px;
-    border: 3px solid black;
+    border: 3px solid rgb(3, 61, 150);
     background-color: #007bff;
-    border-radius: 0rem 1rem 1rem 0rem;
+    border-radius: 1rem 0rem 0rem 1rem;
     margin-bottom: 1rem;
-    position: relative;
 }
 
 .singleBookSection {
@@ -32,27 +31,97 @@
 }
 
 .dropDownMenu {
-    background-color: black;
+    background-color: rgb(3, 61, 150);
     align-items: center;
     width: 2rem;
     color: white;
-    position: absolute; 
-    left:0;
-    right:0;
-    top:0;
-    bottom:0;
-}
-
-.dropDownMenuWrapper {
     display: flex;
-    align-items: center;
     justify-content: space-evenly;
+    min-height: 4rem;
+    transition: 500ms;
 }
 
-.dropDownMenu2 {
-    display: none;
-}
-
-.dropDownMenu:hover div {
+.dropDownMenu:hover button {
     display: block;
+    cursor: pointer;
+    color: blanchedalmond;
+}
+
+.dropDownMenuCopyWrapper:hover {
+    cursor: pointer;
+    background-color: rgb(2, 45, 109);
+    transform: scale(1.05)
+}
+
+.dropDownMenuDisplay:hover {
+    cursor: pointer;
+    background-color: rgb(2, 45, 109);
+    transform: scale(1.05);
+}
+
+.dropDownMenuEdit:hover {
+    cursor: pointer;
+    background-color: rgb(2, 45, 109);
+    transform: scale(1.05)
+}
+
+.dropDownMenuDelete:hover {
+    cursor: pointer;
+    background-color: rgb(2, 45, 109);
+    transform: scale(1.05)
+}
+
+.dropDownMenuCopyWrapper {
+    position: absolute;
+    margin-left: -227px;
+    display: none;
+    background-color: rgb(3, 61, 150);
+    min-height: 4rem;
+    padding: 0px 10px 0px 10px;
+    line-height: 4rem;
+    border-top: 0px;
+    border-bottom: 0px;
+    border-left: 0px;
+}
+
+.dropDownMenuDisplay {
+    position: absolute;
+    margin-left: -51px;
+    display: none;
+    background-color: rgb(3, 61, 150);
+    min-height: 4rem;
+    padding: 0px 10px 0px 10px;
+    line-height: 4rem;
+    border-left: 1px solid rgb(24, 77, 155);
+    border-right: 1px solid rgb(24, 77, 155);
+    border-top: 0px;
+    border-bottom: 0px;
+}
+
+.dropDownMenuEdit {
+    position: absolute;
+    margin-left: -110px;
+    display: none;
+    background-color: rgb(3, 61, 150);
+    min-height: 4rem;
+    padding: 0px 10px 0px 10px;
+    line-height: 4rem;
+    border-left: 1px solid rgb(24, 77, 155);
+    border-top: 0px;
+    border-bottom: 0px;
+    border-right: 0px;
+}
+
+.dropDownMenuDelete {
+    position: absolute;
+    margin-left: -166px;
+    display: none;
+    background-color: rgb(3, 61, 150);
+    min-height: 4rem;
+    padding: 0px 10px 0px 10px;
+    line-height: 4rem;
+    border-left: 1px solid rgb(24, 77, 155);
+    border-top: 0px;
+    border-bottom: 0px;
+    border-right: 0px;
 }

@@ -31,10 +31,11 @@ const Book = ({
                             </div>
                         </section>
                         <div className="dropDownMenu">
-                            <div className="dropDownMenuWrapper">
-                                <p>{'>>>'}</p>
-                                <div className="dropDownMenu2">Hi</div>
-                            </div>
+                            <button className="dropDownMenuCopyWrapper">Copy</button>
+                            <button className="dropDownMenuDelete">Delete</button>
+                            <button className="dropDownMenuEdit">Edit</button>
+                            <button className="dropDownMenuDisplay">Display</button>
+                            <div>{'<<<'}</div>
                         </div>
                     </li>);
                 })}
