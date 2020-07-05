@@ -13,8 +13,6 @@ class List extends PureComponent {
     constructor() {
         super();
         this.Rating = ['poor', 'middle', 'great'];
-        this.newBook = {};
-        this.test = [];
         this.state = {
             list: [],
             show: false
@@ -22,22 +20,24 @@ class List extends PureComponent {
     }
 
     openTemplate = () => {
-        this.setState({ show: true });
+        console.log('open');
+        console.log(this.state);
         this.newBook = {};
+        this.setState({ show: true });
     }
 
     addBook = (event) => {
         event.preventDefault();
-        if (event.target.tagName === 'BUTTON') {
-            this.setState({ show: true });
-            this.newBook = {};
-        } else {
-            if (Object.keys(this.newBook)) {
-                let book = Object.assign(this.newBook, { id: new Date().toString() });
-                this.setState({ list: this.state.list.concat(book) });
-            }
-            this.setState({ show: !this.state.show });
-        }
+        const book = Object.assign(this.newBook, { id: new Date().toString() });
+
+        console.log('add');
+        console.log(Object.keys(this.newBook).length);
+
+        this.setState({ list: this.state.list.concat(book) });
+
+        delete this.newBook;
+        console.log(this.state);
+        this.setState({ show: !this.state.show });
     }
 
     createBook = (propertyOfBook) => {
