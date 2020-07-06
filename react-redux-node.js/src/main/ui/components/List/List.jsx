@@ -10,8 +10,8 @@ import BookShortTemplate from './../BookShortTemplate';
 import Book from './../Book';
 
 class List extends PureComponent {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.Rating = ['poor', 'middle', 'great'];
         this.state = {
             list: [],
