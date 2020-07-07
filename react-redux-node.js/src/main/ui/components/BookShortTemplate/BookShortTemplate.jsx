@@ -3,21 +3,44 @@ import './BookShortTemplate.css';
 
 
 class BookShortTemplate extends PureComponent {
-    getTitle(e) {
-        const { createNewBook } = this.props;
-        return createNewBook({ title: e.target.value })
+    state = {
+        inputTitleText: '',
+        showData: {
+            title: ''
+        }
     }
 
-    render() {
-        const { createNewBook, rating, addBook } = this.props;
+    getTitle = ({ target: { value } }) => {
+        const { createNewBook } = this.props;
+        this.setState({ inputTitleText: value });
+        return createNewBook({ title: value });
+    }
+
+    showData = (e) => {
+        e.preventDefault();
+        const { inputTitleText } = this.state;
+        const { createNewBook, addBook } = this.props;
+        this.setState({
+            inputTitleText: '',
+            showData: {
+                title: inputTitleText
+            }
+        }, addBook(this.state.showData));
+        //createNewBook({ title: inputTitleText });
+        //addBook(this.state.showData);
+    }
+
+    render = () => {
+        const { inputTitleText } = this.state;
+        const { createNewBook, rating } = this.props;
         return (
             <div className="templateContainer">
                 <div className="additionaltemplateContainer">
                     <section>
-                        <form className="templateForm" onSubmit={addBook}>
+                        <form className="templateForm" onSubmit={this.showData}>
                             <div className="templateWrapper" >
-                                <label className="lablel" ><input type="checkbox" onChange={(e) => createNewBook({ important: e.target.checked })} /> important</label>
-                                <input className="title" type="text" placeholder="title..." onChange={e => this.getTitle(e)} />
+                                <label className="lablel" htmlFor="text" ><input type="checkbox" onChange={(e) => createNewBook({ important: e.target.checked })} /> important</label>
+                                <input className="title" type="text" placeholder="title..." value={inputTitleText} onChange={this.getTitle} />
                                 <select className="dropDownBookShortTemplate" name="select" onChange={(e) => createNewBook({ rating: e.target.value })}>
                                     {rating.map(function (sRating, index) {
                                         return (<option value={sRating} key={index}>{sRating}</option>);

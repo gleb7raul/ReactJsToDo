@@ -15,19 +15,19 @@ const Book = ({
                             </div>
                             <div>
                                 <p className="lablelBook"> Status</p>
-                                <lable className="valueOfBook">{oList.important ? 'Important' : 'Normally'}</lable>
+                                <lable className="valueOfBook" htmlFor="text">{oList.important ? 'Important' : 'Normally'}</lable>
                             </div>
                             <div>
                                 <p className="lablelBook"> Title</p>
-                                <lable className="valueOfBook">{oList.title ? oList.title : 'none'}</lable>
+                                <lable className="valueOfBook" htmlFor="text">{oList.title ? oList.title : 'none'}</lable>
                             </div>
                             <div>
                                 <p className="lablelBook"> Rating</p>
-                                <lable className="valueOfBook">{oList.rating ? oList.rating : 'none'}</lable>
+                                <lable className="valueOfBook" htmlFor="text">{oList.rating ? oList.rating : 'none'}</lable>
                             </div>
                             <div>
                                 <p className="lablelBook"> Comment</p>
-                                <lable className="valueOfBook">{oList.comment ? oList.comment : 'none'}</lable>
+                                <lable className="valueOfBook" htmlFor="text">{oList.comment ? oList.comment : 'none'}</lable>
                             </div>
                         </section>
                         <div className="dropDownMenu">

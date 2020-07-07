@@ -26,8 +26,10 @@ class List extends PureComponent {
         this.setState({ show: true });
     }
 
-    addBook = (event) => {
-        event.preventDefault();
+    addBook = (oDtata) => {
+        console.log('oData');
+        console.log(oDtata);
+
         const book = Object.assign(this.newBook, { id: new Date().toString() });
 
         console.log('add');
