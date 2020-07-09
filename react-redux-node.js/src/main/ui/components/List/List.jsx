@@ -15,50 +15,68 @@ class List extends PureComponent {
         this.Rating = ['poor', 'middle', 'great'];
         this.state = {
             list: [],
-            show: false
+            show: false,
+            bookShortTemplate: {
+                inputTitleText: '',
+                done: '',
+                rating: '',
+                textArea: '',
+                showData: {
+                    done: '',
+                    title: '',
+                    rating: '',
+                    textArea: ''
+                }
+            }
         };
     }
 
     openTemplate = () => {
-        console.log('open');
-        console.log(this.state);
-        this.newBook = {};
+        //this.newBook = {};
         this.setState({ show: true });
     }
 
-    addBook = (oDtata) => {
-        console.log('oData');
-        console.log(oDtata);
-
-        const book = Object.assign(this.newBook, { id: new Date().toString() });
-
-        console.log('add');
-        console.log(Object.keys(this.newBook).length);
-
+    addBook = () => {
+        // const defaultStateOfBookShortTemplate = {
+        //     inputTitleText: '',
+        //     done: '',
+        //     rating: '',
+        //     textArea: '',
+        //     showData: {
+        //         done: '',
+        //         title: '',
+        //         rating: '',
+        //         textArea: ''
+        //     }
+        // };
+        const book = { ...this.state.bookShortTemplate.showData };
+        book.id = new Date().toString();
         this.setState({ list: this.state.list.concat(book) });
-
-        delete this.newBook;
-        console.log(this.state);
         this.setState({ show: !this.state.show });
+        //this.setState({ bookShortTemplate: defaultStateOfBookShortTemplate });
+
     }
 
     createBook = (propertyOfBook) => {
         if (propertyOfBook.title) {
-            this.newBook.title = propertyOfBook.title;
+            const bookShortTemplate = { ...this.state.bookShortTemplate };
+            bookShortTemplate.inputTitleText = propertyOfBook.title;
+            bookShortTemplate.showData.title = propertyOfBook.title;
+            this.setState({ bookShortTemplate });
         }
         if (Object.keys(propertyOfBook).some((property) => property === 'important')) {
-            this.newBook.important = propertyOfBook.important;
+            //this.newBook.important = propertyOfBook.important;
         }
         if (propertyOfBook.rating) {
-            this.newBook.rating = propertyOfBook.rating;
+            // this.newBook.rating = propertyOfBook.rating;
         }
         if (propertyOfBook.comment) {
-            this.newBook.comment = propertyOfBook.comment;
+            //this.newBook.comment = propertyOfBook.comment;
         }
     }
 
     render() {
-        const { show, list } = this.state;
+        const { show, list, bookShortTemplate } = this.state;
         return (
             <div className="wrapper">
                 <section className="toollbar">
@@ -73,9 +91,10 @@ class List extends PureComponent {
                     </Button>
                 </section>
                 <section className={show ? 'displayTemplate' : 'createNewBook'}>
-                    <BookShortTemplate createNewBook={this.createBook} rating={this.Rating} addBook={this.addBook} />
+                    <BookShortTemplate bookShortTemplate={bookShortTemplate} createNewBook={this.createBook} rating={this.Rating} addBook={this.addBook} />
                 </section>
-                <section className={list ? 'displayTemplate' : 'createNewBook'}>
+                <section className='displayTemplate'>
+                    {console.log(list)}
                     <Book list={list} />
                 </section>
             </div>
