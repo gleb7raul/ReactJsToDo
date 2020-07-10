@@ -20,58 +20,67 @@ class List extends PureComponent {
                 inputTitleText: '',
                 done: '',
                 rating: '',
-                textArea: '',
+                comment: '',
                 showData: {
                     done: '',
                     title: '',
                     rating: '',
-                    textArea: ''
+                    comment: ''
                 }
             }
         };
     }
 
     openTemplate = () => {
-        //this.newBook = {};
         this.setState({ show: true });
     }
 
-    addBook = () => {
-        // const defaultStateOfBookShortTemplate = {
-        //     inputTitleText: '',
-        //     done: '',
-        //     rating: '',
-        //     textArea: '',
-        //     showData: {
-        //         done: '',
-        //         title: '',
-        //         rating: '',
-        //         textArea: ''
-        //     }
-        // };
+    addBook = (e) => {
+        e.preventDefault();
+        const defaultStateOfBookShortTemplate = {
+            inputTitleText: '',
+            status: '',
+            rating: '',
+            comment: '',
+            showData: {
+                status: '',
+                title: '',
+                rating: '',
+                comment: ''
+            }
+        };
         const book = { ...this.state.bookShortTemplate.showData };
         book.id = new Date().toString();
         this.setState({ list: this.state.list.concat(book) });
         this.setState({ show: !this.state.show });
-        //this.setState({ bookShortTemplate: defaultStateOfBookShortTemplate });
+        this.setState({ bookShortTemplate: defaultStateOfBookShortTemplate });
 
     }
 
     createBook = (propertyOfBook) => {
         if (propertyOfBook.title) {
-            const bookShortTemplate = { ...this.state.bookShortTemplate };
-            bookShortTemplate.inputTitleText = propertyOfBook.title;
-            bookShortTemplate.showData.title = propertyOfBook.title;
-            this.setState({ bookShortTemplate });
+            const bookShortTemplateCopy = { ...this.state.bookShortTemplate };
+            bookShortTemplateCopy.inputTitleText = propertyOfBook.title;
+            bookShortTemplateCopy.showData.title = propertyOfBook.title;
+            this.setState({ bookShortTemplate: bookShortTemplateCopy });
         }
         if (Object.keys(propertyOfBook).some((property) => property === 'important')) {
-            //this.newBook.important = propertyOfBook.important;
+            const bookShortTemplateCopy = { ...this.state.bookShortTemplate };
+            bookShortTemplateCopy.status = propertyOfBook.important;
+            bookShortTemplateCopy.showData.status = propertyOfBook.important;
+            this.setState({ bookShortTemplate: bookShortTemplateCopy });
         }
         if (propertyOfBook.rating) {
-            // this.newBook.rating = propertyOfBook.rating;
+            const bookShortTemplateCopy = { ...this.state.bookShortTemplate };
+            bookShortTemplateCopy.rating = propertyOfBook.rating;
+            bookShortTemplateCopy.showData.rating = propertyOfBook.rating;
+            this.setState({ bookShortTemplate: bookShortTemplateCopy });
         }
         if (propertyOfBook.comment) {
-            //this.newBook.comment = propertyOfBook.comment;
+            const bookShortTemplateCopy = { ...this.state.bookShortTemplate };
+            bookShortTemplateCopy.comment = propertyOfBook.comment;
+            bookShortTemplateCopy.showData.comment = propertyOfBook.comment;
+            this.setState({ bookShortTemplate: bookShortTemplateCopy })
         }
     }
 
@@ -94,6 +103,7 @@ class List extends PureComponent {
                     <BookShortTemplate bookShortTemplate={bookShortTemplate} createNewBook={this.createBook} rating={this.Rating} addBook={this.addBook} />
                 </section>
                 <section className='displayTemplate'>
+                    {console.log('list')}
                     {console.log(list)}
                     <Book list={list} />
                 </section>

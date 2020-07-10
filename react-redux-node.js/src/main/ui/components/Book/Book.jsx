@@ -12,10 +12,11 @@ const Book = ({
                             <div>
                                 <p className="lablelBook" > Done</p>
                                 <input type="checkbox" />
+                                {/* <label className="lablel" htmlFor="text" ><input type="checkbox" onChange={(e) => createNewBook({ important: e.target.checked })} /> important</label> */}
                             </div>
                             <div>
                                 <p className="lablelBook"> Status</p>
-                                <lable className="valueOfBook" htmlFor="text">{oList.important ? 'Important' : 'Normally'}</lable>
+                                <lable className="valueOfBook" htmlFor="text">{oList.status ? 'Important' : 'Normally'}</lable>
                             </div>
                             <div>
                                 <p className="lablelBook"> Title</p>
