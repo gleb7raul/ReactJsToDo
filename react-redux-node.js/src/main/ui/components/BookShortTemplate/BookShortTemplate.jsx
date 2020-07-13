@@ -7,7 +7,7 @@ const BookShortTemplate = ({ createNewBook, rating, addBook, bookShortTemplate }
             <section>
                 <form className="templateForm" onSubmit={addBook}>
                     <div className="templateWrapper" >
-                        <label className="lablel" htmlFor="text" ><input type="checkbox" checked={bookShortTemplate.status} onChange={(e) => createNewBook({ important: e.target.checked })} /> important</label>
+                        <label className="lablel"><input type="checkbox" checked={bookShortTemplate.status} onChange={(e) => createNewBook({ important: e.target.checked })} /> important</label>
                         <input className="title" type="text" placeholder="title..." value={bookShortTemplate.inputTitleText} onChange={(e) => createNewBook({ title: e.target.value })} />
                         <select className="dropDownBookShortTemplate" name="select" value={bookShortTemplate.rating} onChange={(e) => createNewBook({ rating: e.target.value })}>
                             {rating.map(function (sRating, index) {

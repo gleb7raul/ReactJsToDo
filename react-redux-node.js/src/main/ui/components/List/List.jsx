@@ -18,11 +18,11 @@ class List extends PureComponent {
             show: false,
             bookShortTemplate: {
                 inputTitleText: '',
-                done: '',
+                status: '',
                 rating: '',
                 comment: '',
                 showData: {
-                    done: '',
+                    status: '',
                     title: '',
                     rating: '',
                     comment: ''
@@ -51,6 +51,7 @@ class List extends PureComponent {
         };
         const book = { ...this.state.bookShortTemplate.showData };
         book.id = new Date().toString();
+        book.done = false;
         this.setState({ list: this.state.list.concat(book) });
         this.setState({ show: !this.state.show });
         this.setState({ bookShortTemplate: defaultStateOfBookShortTemplate });
@@ -84,6 +85,17 @@ class List extends PureComponent {
         }
     }
 
+    complitedOfBook = (oStatus) => {
+        console.log(oStatus);
+        const aCurrentListOfBooks = this.state.list.map((oBook) => {
+            if (oBook.id === oStatus.id) {
+                oBook.done = oStatus.status;
+            }
+            return oBook;
+        });
+        this.setState({ list: aCurrentListOfBooks });
+    }
+
     render() {
         const { show, list, bookShortTemplate } = this.state;
         return (
@@ -102,10 +114,8 @@ class List extends PureComponent {
                 <section className={show ? 'displayTemplate' : 'createNewBook'}>
                     <BookShortTemplate bookShortTemplate={bookShortTemplate} createNewBook={this.createBook} rating={this.Rating} addBook={this.addBook} />
                 </section>
-                <section className='displayTemplate'>
-                    {console.log('list')}
-                    {console.log(list)}
-                    <Book list={list} />
+                <section>
+                    <Book list={list} complitedOfBook={this.complitedOfBook} />
                 </section>
             </div>
         );

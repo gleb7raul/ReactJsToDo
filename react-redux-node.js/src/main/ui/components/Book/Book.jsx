@@ -2,17 +2,18 @@ import React from 'react';
 import './Book.css';
 
 const Book = ({
-    list
+    list,
+    complitedOfBook
 }) => (
         <div>
             <ul className="singleBookHeader">
-                {list.map(function (oList, index) {
+                {list.map(function (oList) {
                     return (<li key={new Date().toString()} className="singleBook">
+                        <div className={oList.done ? 'singleBookComplited' : 'singleBookInWork'}></div>
                         <section className="singleBookSection">
                             <div>
                                 <p className="lablelBook" > Done</p>
-                                <input type="checkbox" />
-                                {/* <label className="lablel" htmlFor="text" ><input type="checkbox" onChange={(e) => createNewBook({ important: e.target.checked })} /> important</label> */}
+                                <input type="checkbox" onChange={(e) => complitedOfBook({ status: e.target.checked, id: oList.id })} />
                             </div>
                             <div>
                                 <p className="lablelBook"> Status</p>
