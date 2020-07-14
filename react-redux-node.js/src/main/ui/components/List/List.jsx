@@ -37,6 +37,7 @@ class List extends PureComponent {
 
     addBook = (e) => {
         e.preventDefault();
+        let book = {};
         const defaultStateOfBookShortTemplate = {
             inputTitleText: '',
             status: '',
@@ -49,7 +50,7 @@ class List extends PureComponent {
                 comment: ''
             }
         };
-        const book = { ...this.state.bookShortTemplate.showData };
+        book = { ...this.state.bookShortTemplate.showData };
         book.id = new Date().toString();
         book.done = false;
         this.setState({ list: this.state.list.concat(book) });
@@ -115,6 +116,7 @@ class List extends PureComponent {
                     <BookShortTemplate bookShortTemplate={bookShortTemplate} createNewBook={this.createBook} rating={this.Rating} addBook={this.addBook} />
                 </section>
                 <section>
+                    {console.log(list)}
                     <Book list={list} complitedOfBook={this.complitedOfBook} />
                 </section>
             </div>

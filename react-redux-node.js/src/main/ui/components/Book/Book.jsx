@@ -13,7 +13,7 @@ const Book = ({
                         <section className="singleBookSection">
                             <div>
                                 <p className="lablelBook" > Done</p>
-                                <input type="checkbox" onChange={(e) => complitedOfBook({ status: e.target.checked, id: oList.id })} />
+                                <input type="checkbox" checked={oList.done} onChange={(e) => complitedOfBook({ status: e.target.checked, id: oList.id })} />
                             </div>
                             <div>
                                 <p className="lablelBook"> Status</p>
