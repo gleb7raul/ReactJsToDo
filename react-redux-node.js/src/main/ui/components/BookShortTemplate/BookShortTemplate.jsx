@@ -1,7 +1,7 @@
 import React from 'react';
 import './BookShortTemplate.css';
 
-const BookShortTemplate = ({ createNewBook, rating, addBook, bookShortTemplate }) => (
+const BookShortTemplate = ({ createNewBook, rating, addBook, bookShortTemplate, cancel }) => (
     <div className="templateContainer">
         <div className="additionaltemplateContainer">
             <section>
@@ -17,7 +17,7 @@ const BookShortTemplate = ({ createNewBook, rating, addBook, bookShortTemplate }
                         <textarea className="textareaBookShortTemplate" placeholder="text..." value={bookShortTemplate.comment} onChange={(e) => createNewBook({ comment: e.target.value })} />
                     </div>
                     <input className="templateAdd title" type="submit" value="ADD" />
-                    <input className="templateCancel title" type="submit" value="CANCEL" />
+                    <button className="templateCancel title" onClick={cancel}>CANCEL</button>
                 </form>
             </section >
         </div >

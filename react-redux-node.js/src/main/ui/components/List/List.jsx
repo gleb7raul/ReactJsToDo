@@ -29,16 +29,7 @@ class List extends PureComponent {
                 }
             }
         };
-    }
-
-    openTemplate = () => {
-        this.setState({ show: true });
-    }
-
-    addBook = (e) => {
-        e.preventDefault();
-        let book = {};
-        const defaultStateOfBookShortTemplate = {
+        this._defaultStateOfBookShortTemplate = {
             inputTitleText: '',
             status: '',
             rating: '',
@@ -50,12 +41,27 @@ class List extends PureComponent {
                 comment: ''
             }
         };
+    }
+
+    openTemplate = () => {
+        this.setState({ show: true });
+    }
+
+    cancel = (e) => {
+        e.preventDefault();
+        this.setState({ show: !this.state.show });
+        this.setState({ bookShortTemplate: this._defaultStateOfBookShortTemplate });
+    }
+
+    addBook = (e) => {
+        e.preventDefault();
+        let book = {};
         book = { ...this.state.bookShortTemplate.showData };
         book.id = new Date().toString();
         book.done = false;
         this.setState({ list: this.state.list.concat(book) });
         this.setState({ show: !this.state.show });
-        this.setState({ bookShortTemplate: defaultStateOfBookShortTemplate });
+        this.setState({ bookShortTemplate: this._defaultStateOfBookShortTemplate });
 
     }
 
@@ -97,6 +103,27 @@ class List extends PureComponent {
         this.setState({ list: aCurrentListOfBooks });
     }
 
+    deleteBook = (e, id) => {
+        e.preventDefault();
+        const aCurrentListOfBook = [...this.state.list];
+        const iIndexOfSelectedBook = aCurrentListOfBook.findIndex((oBook) => oBook.id === id);
+        aCurrentListOfBook.splice(iIndexOfSelectedBook, 1);
+        this.setState({ list: aCurrentListOfBook });
+    }
+
+    copyBook = (e, id) => {
+        e.preventDefault();
+        const aCurrentListOfBook = [...this.state.list];
+        aCurrentListOfBook.forEach((oBook) => {
+            if (oBook.id === id) {
+                const oNewBook = { ...oBook };
+                oNewBook.id = new Date().toString();
+                aCurrentListOfBook.push(oNewBook);
+            };
+        });
+        this.setState({ list: aCurrentListOfBook });
+    }
+
     render() {
         const { show, list, bookShortTemplate } = this.state;
         return (
@@ -113,11 +140,10 @@ class List extends PureComponent {
                     </Button>
                 </section>
                 <section className={show ? 'displayTemplate' : 'createNewBook'}>
-                    <BookShortTemplate bookShortTemplate={bookShortTemplate} createNewBook={this.createBook} rating={this.Rating} addBook={this.addBook} />
+                    <BookShortTemplate bookShortTemplate={bookShortTemplate} createNewBook={this.createBook} rating={this.Rating} addBook={this.addBook} cancel={this.cancel} />
                 </section>
                 <section>
-                    {console.log(list)}
-                    <Book list={list} complitedOfBook={this.complitedOfBook} />
+                    <Book list={list} complitedOfBook={this.complitedOfBook} deleteBook={this.deleteBook} copyBook={this.copyBook} />
                 </section>
             </div>
         );
