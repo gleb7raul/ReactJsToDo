@@ -55,14 +55,19 @@ class List extends PureComponent {
 
     addBook = (e) => {
         e.preventDefault();
+        this.setState({ list: this.state.list.concat(this._bookCreated()) });
+        this.setState({ show: !this.state.show });
+        this.setState({ bookShortTemplate: this._defaultStateOfBookShortTemplate });
+
+    }
+
+    _bookCreated = () => {
         let book = {};
         book = { ...this.state.bookShortTemplate.showData };
         book.id = new Date().toString();
         book.done = false;
-        this.setState({ list: this.state.list.concat(book) });
-        this.setState({ show: !this.state.show });
-        this.setState({ bookShortTemplate: this._defaultStateOfBookShortTemplate });
-
+        book.show = true;
+        return book;
     }
 
     createBook = (propertyOfBook) => {
@@ -124,12 +129,44 @@ class List extends PureComponent {
         this.setState({ list: aCurrentListOfBook });
     }
 
+    searchFilter = (e) => {
+        const sValue = e.target.value;
+        console.log(sValue);
+        const aList = [...this.state.list];
+        aList.forEach((oBook) => {
+            if (!this._validated(sValue, oBook)) {
+                oBook.show = false;
+            };
+        });
+        this.setState({ list: aList });
+    }
+
+    _validated = (sValue, oBook) => {
+        let bShowBook = false;
+        const sValueLength = sValue.length;
+        const aAllFields = [];
+        const aComment = oBook.comment.split(' ');
+        aAllFields.push(oBook.status);
+        aAllFields.push(oBook.title);
+        const aResult = aAllFields.concat(aComment);
+        aResult.forEach((sElement) => {
+            if (sElement.substr(0, sValueLength) === sValue) {
+                bShowBook = true;
+            };
+        });
+        return bShowBook;
+    }
+
     render() {
-        const { show, list, bookShortTemplate } = this.state;
+        const { show,
+            list,
+            bookShortTemplate
+        } = this.state;
+
         return (
             <div className="wrapper">
                 <section className="toollbar">
-                    <input className="searchField" type="text" placeholder="Search..." />
+                    <input className="searchField" type="text" placeholder="Search..." onChange={this.searchFilter} />
                     <DropdownButton id="dropdown-item-button" title="Sorting Selection">
                         <Dropdown.Item eventKey="1" as="button">Action</Dropdown.Item>
                         <Dropdown.Item eventKey="2" as="button">Another action</Dropdown.Item>
