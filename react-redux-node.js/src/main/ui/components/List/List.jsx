@@ -12,8 +12,9 @@ import Book from './../Book';
 class List extends PureComponent {
     constructor(props) {
         super(props);
-        this.Rating = ['poor', 'middle', 'great'];
+        this.Rating = ['none', 'poor', 'middle', 'great'];
         this.state = {
+            ratingSearch: '',
             list: [],
             show: false,
             bookShortTemplate: {
@@ -131,11 +132,12 @@ class List extends PureComponent {
 
     searchFilter = (e) => {
         const sValue = e.target.value;
-        console.log(sValue);
         const aList = [...this.state.list];
         aList.forEach((oBook) => {
             if (!this._validated(sValue, oBook)) {
                 oBook.show = false;
+            } else {
+                oBook.show = true;
             };
         });
         this.setState({ list: aList });
@@ -157,20 +159,26 @@ class List extends PureComponent {
         return bShowBook;
     }
 
+    handlerSelectedRating = (eventKey) => {
+        this.setState({ ratingSearch: eventKey });
+    }
+
     render() {
         const { show,
             list,
-            bookShortTemplate
+            bookShortTemplate,
+            ratingSearch
         } = this.state;
 
         return (
             <div className="wrapper">
                 <section className="toollbar">
                     <input className="searchField" type="text" placeholder="Search..." onChange={this.searchFilter} />
-                    <DropdownButton id="dropdown-item-button" title="Sorting Selection">
-                        <Dropdown.Item eventKey="1" as="button">Action</Dropdown.Item>
-                        <Dropdown.Item eventKey="2" as="button">Another action</Dropdown.Item>
-                        <Dropdown.Item eventKey="3" as="button">Something else</Dropdown.Item>
+                    <DropdownButton id="dropdown-item-button" title="Sorting Rating" onSelect={this.handlerSelectedRating}>
+                        <Dropdown.Item eventKey="" as="button">none</Dropdown.Item>
+                        <Dropdown.Item eventKey="poor" as="button">Poor</Dropdown.Item>
+                        <Dropdown.Item eventKey="middle" as="button">Middle</Dropdown.Item>
+                        <Dropdown.Item eventKey="great" as="button">Great</Dropdown.Item>
                     </DropdownButton>
                     <Button onClick={this.openTemplate} variant="primary">
                         Create new book
@@ -180,7 +188,7 @@ class List extends PureComponent {
                     <BookShortTemplate bookShortTemplate={bookShortTemplate} createNewBook={this.createBook} rating={this.Rating} addBook={this.addBook} cancel={this.cancel} />
                 </section>
                 <section>
-                    <Book list={list} complitedOfBook={this.complitedOfBook} deleteBook={this.deleteBook} copyBook={this.copyBook} />
+                    <Book list={list} complitedOfBook={this.complitedOfBook} deleteBook={this.deleteBook} copyBook={this.copyBook} ratingSearch={ratingSearch} />
                 </section>
             </div>
         );
