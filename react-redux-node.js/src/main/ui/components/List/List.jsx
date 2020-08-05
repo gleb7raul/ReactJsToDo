@@ -8,8 +8,17 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './List.css';
 import BookShortTemplate from './../BookShortTemplate';
 import Book from './../Book';
+import PropTypes from 'prop-types';
 
 class List extends PureComponent {
+    static propTypes = {
+        children: PropTypes.element,
+    }
+
+    static defaultProps = {
+        children: null,
+    }
+
     constructor(props) {
         super(props);
         this.Rating = ['none', 'poor', 'middle', 'great'];

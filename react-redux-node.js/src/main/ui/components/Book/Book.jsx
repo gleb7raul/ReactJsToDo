@@ -1,5 +1,6 @@
 import React from 'react';
 import './Book.css';
+import PropTypes from 'prop-types';
 
 const Book = ({
     list,
@@ -50,5 +51,21 @@ const Book = ({
             </ul>
         </div>
     );
+
+Book.propTypes = {
+    list: PropTypes.array.isRequired,
+    complitedOfBook: PropTypes.func,
+    deleteBook: PropTypes.func,
+    copyBook: PropTypes.func,
+    ratingSearch: PropTypes.string
+};
+
+Book.defaultProps = {
+    list: [],
+    complitedOfBook: () => { },
+    deleteBook: () => { },
+    copyBook: () => { },
+    ratingSearch: ''
+};
 
 export default Book;
