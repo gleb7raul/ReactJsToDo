@@ -9,6 +9,8 @@ import './List.css';
 import BookShortTemplate from './../BookShortTemplate';
 import Book from './../Book';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { showTemplate } from './../../actions/actionCreator';
 
 class List extends PureComponent {
     static propTypes = {
@@ -25,7 +27,7 @@ class List extends PureComponent {
         this.state = {
             ratingSearch: '',
             list: [],
-            show: false,
+            // show: false,
             bookShortTemplate: {
                 inputTitleText: '',
                 status: '',
@@ -54,19 +56,22 @@ class List extends PureComponent {
     }
 
     openTemplate = () => {
-        this.setState({ show: true });
+        const { showTemplate } = this.props;
+        showTemplate(true);
     }
 
     cancel = (e) => {
         e.preventDefault();
-        this.setState({ show: !this.state.show });
+        const { showTemplate } = this.props;
+        showTemplate(false);
         this.setState({ bookShortTemplate: this._defaultStateOfBookShortTemplate });
     }
 
     addBook = (e) => {
         e.preventDefault();
         this.setState({ list: this.state.list.concat(this._bookCreated()) });
-        this.setState({ show: !this.state.show });
+        const { showTemplate } = this.props;
+        showTemplate(false);
         this.setState({ bookShortTemplate: this._defaultStateOfBookShortTemplate });
 
     }
@@ -108,7 +113,6 @@ class List extends PureComponent {
     }
 
     complitedOfBook = (oStatus) => {
-        console.log(oStatus);
         const aCurrentListOfBooks = this.state.list.map((oBook) => {
             if (oBook.id === oStatus.id) {
                 oBook.done = oStatus.status;
@@ -173,11 +177,12 @@ class List extends PureComponent {
     }
 
     render() {
-        const { show,
-            list,
+        const { list,
             bookShortTemplate,
             ratingSearch
         } = this.state;
+        const { show } = this.props;
+
 
         return (
             <div className="wrapper">
@@ -205,4 +210,6 @@ class List extends PureComponent {
 
 }
 
-export default List;
+export default connect(state => ({
+    show: state.show,
+}), { showTemplate })(List);
