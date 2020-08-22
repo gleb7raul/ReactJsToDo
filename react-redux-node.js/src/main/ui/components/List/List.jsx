@@ -11,6 +11,7 @@ import Book from './../Book';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { showTemplate } from './../../actions/actionCreator';
+import { RATING, DEFAULT_STATE_OF_BOOK_SHORT_TEMPLATE } from './../../constans';
 
 class List extends PureComponent {
     static propTypes = {
@@ -23,11 +24,9 @@ class List extends PureComponent {
 
     constructor(props) {
         super(props);
-        this.Rating = ['none', 'poor', 'middle', 'great'];
         this.state = {
             ratingSearch: '',
             list: [],
-            // show: false,
             bookShortTemplate: {
                 inputTitleText: '',
                 status: '',
@@ -41,18 +40,6 @@ class List extends PureComponent {
                 }
             }
         };
-        this._defaultStateOfBookShortTemplate = {
-            inputTitleText: '',
-            status: '',
-            rating: '',
-            comment: '',
-            showData: {
-                status: '',
-                title: '',
-                rating: '',
-                comment: ''
-            }
-        };
     }
 
     openTemplate = () => {
@@ -64,7 +51,7 @@ class List extends PureComponent {
         e.preventDefault();
         const { showTemplate } = this.props;
         showTemplate(false);
-        this.setState({ bookShortTemplate: this._defaultStateOfBookShortTemplate });
+        this.setState({ bookShortTemplate: DEFAULT_STATE_OF_BOOK_SHORT_TEMPLATE });
     }
 
     addBook = (e) => {
@@ -72,7 +59,7 @@ class List extends PureComponent {
         this.setState({ list: this.state.list.concat(this._bookCreated()) });
         const { showTemplate } = this.props;
         showTemplate(false);
-        this.setState({ bookShortTemplate: this._defaultStateOfBookShortTemplate });
+        this.setState({ bookShortTemplate: DEFAULT_STATE_OF_BOOK_SHORT_TEMPLATE });
 
     }
 
@@ -183,7 +170,6 @@ class List extends PureComponent {
         } = this.state;
         const { show } = this.props;
 
-
         return (
             <div className="wrapper">
                 <section className="toollbar">
@@ -199,7 +185,7 @@ class List extends PureComponent {
                     </Button>
                 </section>
                 <section className={show ? 'displayTemplate' : 'createNewBook'}>
-                    <BookShortTemplate bookShortTemplate={bookShortTemplate} createNewBook={this.createBook} rating={this.Rating} addBook={this.addBook} cancel={this.cancel} />
+                    <BookShortTemplate bookShortTemplate={bookShortTemplate} createNewBook={this.createBook} rating={RATING} addBook={this.addBook} cancel={this.cancel} />
                 </section>
                 <section>
                     <Book list={list} complitedOfBook={this.complitedOfBook} deleteBook={this.deleteBook} copyBook={this.copyBook} ratingSearch={ratingSearch} />

@@ -10,7 +10,6 @@ const Book = ({
     ratingSearch
 }) => (
         <div className={list.map((oList) => oList.show ? 'singleBookInShow' : 'singleBookInWork')}>
-            {console.log(list)}
             <ul className="singleBookHeader">
                 {list.map((oList, index) => {
                     if (oList.show && (ratingSearch ? oList.rating === ratingSearch : true)) {
