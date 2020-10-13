@@ -1,4 +1,5 @@
 export const SHOW_TEMPLATE = 'SHOW_TEMPLATE';
+export const RATING_SEARCH = 'RATING_SEARCH';
 export const RATING = ['none', 'poor', 'middle', 'great'];
 export const DEFAULT_STATE_OF_BOOK_SHORT_TEMPLATE = {
     inputTitleText: '',
