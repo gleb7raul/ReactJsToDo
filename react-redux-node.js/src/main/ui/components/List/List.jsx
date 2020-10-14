@@ -10,7 +10,14 @@ import BookShortTemplate from './../BookShortTemplate';
 import Book from './../Book';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { showTemplate, ratingSearch } from './../../actions/actionCreator';
+import {
+	showTemplate,
+	ratingSearch,
+	complitedBookCheck,
+	addBookAction,
+	removeBook,
+	copyBook
+} from './../../actions/actionCreator';
 import { RATING, DEFAULT_STATE_OF_BOOK_SHORT_TEMPLATE } from './../../constans';
 
 class List extends PureComponent {
@@ -22,23 +29,19 @@ class List extends PureComponent {
 		children: null,
 	}
 
-	constructor(props) {
-		super(props);
-		this.state = {
-			list: [],
-			bookShortTemplate: {
-				inputTitleText: '',
+	state = {
+		bookShortTemplate: {
+			inputTitleText: '',
+			status: '',
+			rating: '',
+			comment: '',
+			showData: {
 				status: '',
+				title: '',
 				rating: '',
-				comment: '',
-				showData: {
-					status: '',
-					title: '',
-					rating: '',
-					comment: ''
-				}
+				comment: ''
 			}
-		};
+		}
 	}
 
 	openTemplate = () => {
@@ -55,8 +58,9 @@ class List extends PureComponent {
 
 	addBook = (e) => {
 		e.preventDefault();
-		this.setState({ list: this.state.list.concat(this._bookCreated()) });
-		const { showTemplate } = this.props;
+		const oNewBook = this._bookCreated();
+		const { addBookAction, showTemplate } = this.props;
+		addBookAction(oNewBook);
 		showTemplate(false);
 		this.setState({ bookShortTemplate: DEFAULT_STATE_OF_BOOK_SHORT_TEMPLATE });
 
@@ -99,34 +103,20 @@ class List extends PureComponent {
 	}
 
 	complitedOfBook = (oStatus) => {
-		const aCurrentListOfBooks = this.state.list.map((oBook) => {
-			if (oBook.id === oStatus.id) {
-				oBook.done = oStatus.status;
-			}
-			return oBook;
-		});
-		this.setState({ list: aCurrentListOfBooks });
+		const { complitedBookCheck } = this.props;
+		complitedBookCheck(oStatus);
 	}
 
 	deleteBook = (e, id) => {
 		e.preventDefault();
-		const aCurrentListOfBook = [...this.state.list];
-		const iIndexOfSelectedBook = aCurrentListOfBook.findIndex((oBook) => oBook.id === id);
-		aCurrentListOfBook.splice(iIndexOfSelectedBook, 1);
-		this.setState({ list: aCurrentListOfBook });
+		const { removeBook } = this.props;
+		removeBook(id);
 	}
 
 	copyBook = (e, id) => {
 		e.preventDefault();
-		const aCurrentListOfBook = [...this.state.list];
-		aCurrentListOfBook.forEach((oBook) => {
-			if (oBook.id === id) {
-				const oNewBook = { ...oBook };
-				oNewBook.id = new Date().toString();
-				aCurrentListOfBook.push(oNewBook);
-			};
-		});
-		this.setState({ list: aCurrentListOfBook });
+		const { copyBook } = this.props;
+		copyBook(id);
 	}
 
 	searchFilter = (e) => {
@@ -164,11 +154,10 @@ class List extends PureComponent {
 	}
 
 	render() {
-		const { list,
-			bookShortTemplate
-		} = this.state;
+		const { bookShortTemplate } = this.state;
 		const { show,
-			filterText
+			filterText,
+			list
 		} = this.props;
 
 		return (
@@ -200,4 +189,12 @@ class List extends PureComponent {
 export default connect(state => ({
 	show: state.show,
 	filterText: state.ratingSearch,
-}), { showTemplate, ratingSearch })(List);
+	list: state.list,
+}), {
+	showTemplate,
+	ratingSearch,
+	complitedBookCheck,
+	addBookAction,
+	removeBook,
+	copyBook
+})(List);
